@@ -6,7 +6,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 # Load model dan objek preprocessing
-model = joblib.load('linear_reg_model.pkl')
+model = joblib.load('model.pkl')
 imputer = joblib.load('imputer.pkl')
 scaler = joblib.load('scaler.pkl')
 le = joblib.load('label_encoder.pkl')
