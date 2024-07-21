@@ -7,7 +7,7 @@ from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 
 # Load the pre-trained model and preprocessing objects
-linear_reg = joblib.load('linear_reg.pkl')
+linear_reg = joblib.load('model.pkl')
 imputer = joblib.load('imputer.pkl')
 scaler = joblib.load('scaler.pkl')
 le = joblib.load('label_encoder.pkl')
