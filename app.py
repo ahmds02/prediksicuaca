@@ -48,7 +48,16 @@ new_data_scaled = pd.DataFrame(scaler.transform(new_data_imputed), columns=new_d
 
 # Predict weather
 predicted_weather = linear_reg.predict(new_data_scaled)
-predicted_weather_label = le.inverse_transform([int(round(predicted_weather[0]))])
+
+# Debugging output
+st.write(f'Predicted raw value: {predicted_weather[0]}')
+
+# Ensure the predicted value is within the range of labels
+try:
+    predicted_weather_label = le.inverse_transform([int(round(predicted_weather[0]))])
+except ValueError as e:
+    st.error(f'Error with inverse transform: {e}')
+    predicted_weather_label = ['Unknown']
 
 # Display prediction result
 st.subheader('Hasil Prediksi Cuaca:')
@@ -59,9 +68,9 @@ if st.checkbox('Tampilkan Grafik Risiko Cuaca'):
     # Example dummy data for visualization
     time_points = ['Pagi', 'Siang', 'Malam', 'Dini Hari']
     risk_values = [20, 40, 60, 80]  # Dummy values for risk percentages
-    
+
     fig, ax = plt.subplots()
-    ax.plot(time_points, risk_values, marker='o', linestyle='-', color='b')
+    ax.bar(time_points, risk_values, color='skyblue')
     ax.set_xlabel('Waktu')
     ax.set_ylabel('Persentase Risiko (%)')
     ax.set_title('Grafik Risiko Cuaca')
