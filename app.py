@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 import matplotlib.pyplot as plt
 
 # Load model and other necessary files
-linear_reg = joblib.load('linear_reg.pkl')
+linear_reg = joblib.load('model.pkl')
 imputer = joblib.load('imputer.pkl')
 scaler = joblib.load('scaler.pkl')
 le = joblib.load('label_encoder.pkl')
