@@ -7,12 +7,12 @@ from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 
 # Load the pre-trained model and preprocessing objects
-linear_reg = joblib.load('model.pkl')
+linear_reg = joblib.load('linear_reg.pkl')
 imputer = joblib.load('imputer.pkl')
 scaler = joblib.load('scaler.pkl')
 le = joblib.load('label_encoder.pkl')
 
-# Define a mapping for user inputs
+# Define mappings for user inputs
 waktu_map = {'Pagi': 0, 'Siang': 1, 'Malam': 2, 'Dini Hari': 3}
 wilayah_map = {'Jakarta Selatan': 0, 'Jakarta Barat': 1, 'Jakarta Utara': 2, 'Jakarta Timur': 3, 'Jakarta Pusat': 4, 'Kepulauan Seribu': 5}
 
@@ -24,12 +24,14 @@ waktu = st.selectbox('Waktu', ['Pagi', 'Siang', 'Malam', 'Dini Hari'])
 wilayah = st.selectbox('Wilayah', ['Jakarta Selatan', 'Jakarta Barat', 'Jakarta Utara', 'Jakarta Timur', 'Jakarta Pusat', 'Kepulauan Seribu'])
 suhu_min = st.number_input('Suhu Min (°C)', min_value=-50.0, step=0.1)
 suhu_max = st.number_input('Suhu Max (°C)', min_value=-50.0, step=0.1)
-kelembaban_min = st.number_input('Kelembaban Min (%)', min_value=0.0, step=0.1)
-kelembaban_max = st.number_input('Kelembaban Max (%)', min_value=0.0, step=0.1)
 
 # Process input data
 waktu_num = waktu_map[waktu]
 wilayah_num = wilayah_map[wilayah]
+
+# Use average values for kelembaban (could be refined based on actual data)
+kelembaban_min = 65.0
+kelembaban_max = 95.0
 
 new_data = pd.DataFrame({
     'waktu': [waktu_num],
@@ -55,8 +57,12 @@ st.write(f'Cuaca yang diprediksi: {predicted_weather_label[0]}')
 # Visualization of risk percentages (dummy example)
 if st.checkbox('Tampilkan Grafik Risiko Cuaca'):
     # Example dummy data for visualization
-    weather_risks = {'Hujan Ringan': 25, 'Hujan Sedang': 15, 'Hujan Lebat': 10, 'Cerah': 30, 'Berawan': 20}
+    time_points = ['Pagi', 'Siang', 'Malam', 'Dini Hari']
+    risk_values = [20, 40, 60, 80]  # Dummy values for risk percentages
+    
     fig, ax = plt.subplots()
-    ax.pie(weather_risks.values(), labels=weather_risks.keys(), autopct='%1.1f%%', startangle=90)
-    ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    ax.plot(time_points, risk_values, marker='o', linestyle='-', color='b')
+    ax.set_xlabel('Waktu')
+    ax.set_ylabel('Persentase Risiko (%)')
+    ax.set_title('Grafik Risiko Cuaca')
     st.pyplot(fig)
