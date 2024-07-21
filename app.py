@@ -54,7 +54,7 @@ st.title('Prediksi Cuaca Wilayah Jakarta')
 
 waktu_input = st.selectbox('Pilih Waktu:', ['Pagi', 'Siang', 'Malam', 'Dini Hari'])
 wilayah_input = st.selectbox('Pilih Wilayah:', ['Jakarta Selatan', 'Jakarta Barat', 'Jakarta Utara', 'Jakarta Timur', 'Jakarta Pusat', 'Kepulauan Seribu'])
-suhu_min_input = st.number_input('Masukkan Suhu Min:', min_value=0.0, max_value=50.0, step=0.1)
+suhu_min_input = st.number_input('Masukkan Suhu :', min_value=0.0, max_value=50.0, step=0.1)
 
 if st.button('Submit'):
     prediksi_cuaca, risiko = predict_weather(waktu_input, wilayah_input, suhu_min_input)
